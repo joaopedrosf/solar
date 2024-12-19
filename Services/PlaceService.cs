@@ -24,19 +24,19 @@ namespace backend_solar.Services {
             foreach (var sensor in place.Sensors) {
                 switch (sensor.Type) {
                     case SensorType.Dirt:
-                        var dirtSensor = await _context.DirtSensorData.AsNoTracking().Where(d => d.Id == sensor.Id).OrderByDescending(d => d.Timestamp).FirstAsync();
+                        var dirtSensor = await _context.DirtSensorData.AsNoTracking().Where(d => d.Id == sensor.Id).OrderByDescending(d => d.Timestamp).FirstOrDefaultAsync();
                         placeDto.DirtSensors.Add(dirtSensor);
                         break;
                     case SensorType.Luminosity:
-                        var luminositySensor = await _context.LuminositySensorData.AsNoTracking().Where(d => d.Id == sensor.Id).OrderByDescending(d => d.Timestamp).FirstAsync();
+                        var luminositySensor = await _context.LuminositySensorData.AsNoTracking().Where(d => d.Id == sensor.Id).OrderByDescending(d => d.Timestamp).FirstOrDefaultAsync();
                         placeDto.LuminositySensors.Add(luminositySensor);
                         break;
                     case SensorType.SolarPanel:
-                        var solarPanelSensor = await _context.SolarPanelData.AsNoTracking().Where(d => d.Id == sensor.Id).OrderByDescending(d => d.Timestamp).FirstAsync();
+                        var solarPanelSensor = await _context.SolarPanelData.AsNoTracking().Where(d => d.Id == sensor.Id).OrderByDescending(d => d.Timestamp).FirstOrDefaultAsync();
                         placeDto.SolarPanelSensors.Add(solarPanelSensor);
                         break;
                     case SensorType.Temperature:
-                        var temperatureSensor = await _context.TemperatureSensorData.AsNoTracking().Where(d => d.Id == sensor.Id).OrderByDescending(d => d.Timestamp).FirstAsync();
+                        var temperatureSensor = await _context.TemperatureSensorData.AsNoTracking().Where(d => d.Id == sensor.Id).OrderByDescending(d => d.Timestamp).FirstOrDefaultAsync();
                         placeDto.TemperatureSensors.Add(temperatureSensor);
                         break;
                 }
