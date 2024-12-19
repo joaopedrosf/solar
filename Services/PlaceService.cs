@@ -25,18 +25,30 @@ namespace backend_solar.Services {
                 switch (sensor.Type) {
                     case SensorType.Dirt:
                         var dirtSensor = await _context.DirtSensorData.AsNoTracking().Where(d => d.Id == sensor.Id).OrderByDescending(d => d.Timestamp).FirstOrDefaultAsync();
+                        if (dirtSensor is null) {
+                            dirtSensor = new DirtSensorData() { Id = sensor.Id, Type = SensorType.Dirt };
+                        }
                         placeDto.DirtSensors.Add(dirtSensor);
                         break;
                     case SensorType.Luminosity:
                         var luminositySensor = await _context.LuminositySensorData.AsNoTracking().Where(d => d.Id == sensor.Id).OrderByDescending(d => d.Timestamp).FirstOrDefaultAsync();
+                        if (luminositySensor is null) {
+                            luminositySensor = new LuminositySensorData() { Id = sensor.Id, Type = SensorType.Luminosity };
+                        }
                         placeDto.LuminositySensors.Add(luminositySensor);
                         break;
                     case SensorType.SolarPanel:
                         var solarPanelSensor = await _context.SolarPanelData.AsNoTracking().Where(d => d.Id == sensor.Id).OrderByDescending(d => d.Timestamp).FirstOrDefaultAsync();
+                        if (solarPanelSensor is null) {
+                            solarPanelSensor = new SolarPanelData() { Id = sensor.Id, Type = SensorType.SolarPanel };
+                        }
                         placeDto.SolarPanelSensors.Add(solarPanelSensor);
                         break;
                     case SensorType.Temperature:
                         var temperatureSensor = await _context.TemperatureSensorData.AsNoTracking().Where(d => d.Id == sensor.Id).OrderByDescending(d => d.Timestamp).FirstOrDefaultAsync();
+                        if (temperatureSensor is null) {
+                            temperatureSensor = new TemperatureSensorData() { Id = sensor.Id, Type = SensorType.Temperature };
+                        }
                         placeDto.TemperatureSensors.Add(temperatureSensor);
                         break;
                 }
